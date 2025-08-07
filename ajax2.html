@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load another page's list items into an ordered list
+    </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-size: 12px;
+            font-family: Arial;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Load another page's list items into an ordered list</h1>
+
+    <h3>Project Lists</h3>
+
+    <ol id="new-projects"></ol>
+    <script>
+        $("#new-projects").load("load.html #projects li");
+        // $("#new-projects").load("/ajax/load.html"); -- display entire contents
+    </script>
+</body>
+
+</html>

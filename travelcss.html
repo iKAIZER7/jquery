@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body { 
+            font-family: 'Arial', sans-serif; 
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+        header {
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .destination {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .controls {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .theme-preview {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TravelWorld</h1>
+        <p>Explore amazing destinations with dynamic styling</p>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <h3>Dynamic CSS Controls</h3>
+            
+            <h4>Theme Switcher</h4>
+            <button id="beachTheme" class="theme-btn">
+                <span class="theme-preview" style="background: #4fc1e9;"></span>
+                Beach Theme
+            </button>
+            <button id="mountainTheme" class="theme-btn">
+                <span class="theme-preview" style="background: #967adc;"></span>
+                Mountain Theme
+            </button>
+            <button id="sunsetTheme" class="theme-btn">
+                <span class="theme-preview" style="background: #ed5565;"></span>
+                Sunset Theme
+            </button>
+            
+            <h4>Destination Styling</h4>
+            <button id="highlightFeatured">Highlight Featured</button>
+            <button id="animateDestinations">Animate Destinations</button>
+            <button id="randomColors">Random Destination Colors</button>
+            
+            <h4>Text Styling</h4>
+            <button id="increaseFont">Increase Font Size</button>
+            <button id="decreaseFont">Decrease Font Size</button>
+            <button id="toggleUppercase">Toggle Uppercase</button>
+        </div>
+
+        <div class="destination featured">
+            <h3>Bali, Indonesia</h3>
+            <p>Known for its forested volcanic mountains, iconic rice paddies, beaches and coral reefs.</p>
+        </div>
+
+        <div class="destination">
+            <h3>Swiss Alps, Switzerland</h3>
+            <p>Famous for its mountain scenery, skiing resorts, and picturesque villages.</p>
+        </div>
+
+        <div class="destination featured">
+            <h3>Santorini, Greece</h3>
+            <p>Renowned for its white-washed houses, blue domed churches, and stunning sunsets.</p>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Theme switcher
+            const themes = {
+                beach: {
+                    'header-bg': '#4fc1e9',
+                    'header-text': '#ffffff',
+                    'body-bg': '#f5f7fa',
+                    'featured-bg': '#a0d468',
+                    'featured-text': '#ffffff',
+                    'regular-bg': '#ffffff',
+                    'button-bg': '#4fc1e9'
+                },
+                mountain: {
+                    'header-bg': '#967adc',
+                    'header-text': '#ffffff',
+                    'body-bg': '#f5f7fa',
+                    'featured-bg': '#5d9cec',
+                    'featured-text': '#ffffff',
+                    'regular-bg': '#ffffff',
+                    'button-bg': '#967adc'
+                },
+                sunset: {
+                    'header-bg': '#ed5565',
+                    'header-text': '#ffffff',
+                    'body-bg': '#f5f7fa',
+                    'featured-bg': '#fc6e51',
+                    'featured-text': '#ffffff',
+                    'regular-bg': '#ffffff',
+                    'button-bg': '#ed5565'
+                }
+            };
+
+            $('#beachTheme').click(function() {
+                applyTheme(themes.beach);
+            });
+
+            $('#mountainTheme').click(function() {
+                applyTheme(themes.mountain);
+            });
+
+            $('#sunsetTheme').click(function() {
+                applyTheme(themes.sunset);
+            });
+
+            function applyTheme(theme) {
+                $('header').css({
+                    'background-color': theme['header-bg'],
+                    'color': theme['header-text']
+                });
+
+                $('body').css('background-color', theme['body-bg']);
+
+                $('.destination.featured').css({
+                    'background-color': theme['featured-bg'],
+                    'color': theme['featured-text']
+                });
+
+                $('.destination:not(.featured)').css({
+                    'background-color': theme['regular-bg']
+                });
+
+                $('button').css('background-color', theme['button-bg']);
+            }
+
+            // Destination styling
+            $('#highlightFeatured').click(function() {
+                $('.destination.featured').css({
+                    'border': '2px solid #e74c3c',
+                    'box-shadow': '0 0 10px rgba(0,0,0,0.1)'
+                }).animate({
+                    'padding-left': '25px',
+                    'padding-right': '25px'
+                }, 300);
+            });
+
+            $('#animateDestinations').click(function() {
+                $('.destination').each(function(index) {
+                    $(this).delay(index * 200).animate({
+                        'opacity': '0.8',
+                        'margin-left': '20px'
+                    }).animate({
+                        'opacity': '1',
+                        'margin-left': '0'
+                    });
+                });
+            });
+
+            $('#randomColors').click(function() {
+                $('.destination').each(function() {
+                    const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+                    $(this).css('background-color', randomColor);
+                });
+            });
+
+            // Text styling
+            let currentFontSize = 16;
+            $('#increaseFont').click(function() {
+                currentFontSize += 1;
+                $('body').css('font-size', currentFontSize + 'px');
+            });
+
+            $('#decreaseFont').click(function() {
+                if(currentFontSize > 12) {
+                    currentFontSize -= 1;
+                    $('body').css('font-size', currentFontSize + 'px');
+                }
+            });
+
+            $('#toggleUppercase').click(function() {
+                $('.destination p').css('text-transform', function(i, value) {
+                    return value === 'uppercase' ? 'none' : 'uppercase';
+                });
+            });
+
+            // Initialize with beach theme
+            applyTheme(themes.beach);
+        });
+    </script>
+</body>
+</html>
